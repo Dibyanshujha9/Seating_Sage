@@ -42,7 +42,8 @@ export function SeatingPlanForm() {
     formData.append('room_specs', roomSpecs);
 
     try {
-      const res = await fetch('https://smartseatplanner-api-engine.onrender.com/generate-seating/', {
+      // Changed to use the internal proxy API route
+      const res = await fetch('/api/generate-seating', {
         method: 'POST',
         body: formData,
       });
@@ -50,21 +51,34 @@ export function SeatingPlanForm() {
       if (!res.ok) {
         let errorMsg = `Error: ${res.status} ${res.statusText}`;
         try {
+            // The proxy API returns JSON errors with an 'error' field
             const errorData = await res.json();
-            errorMsg = errorData.detail || errorMsg;
+            errorMsg = errorData.error || errorData.detail || errorMsg;
         } catch (jsonError) {
-            // If response is not JSON, use the status text
+            // If response is not JSON (e.g., network error before proxy, though less likely now), use status text
         }
         throw new Error(errorMsg);
       }
       
       const result = await res.blob();
       const blobUrl = window.URL.createObjectURL(result);
+      
+      // Try to get filename from Content-Disposition header
+      let downloadFilename = "seating_plan.xlsx";
+      const disposition = res.headers.get('Content-Disposition');
+      if (disposition && disposition.indexOf('attachment') !== -1) {
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        const matches = filenameRegex.exec(disposition);
+        if (matches != null && matches[1]) {
+          downloadFilename = matches[1].replace(/['"]/g, '');
+        }
+      }
+
 
       setResponseContent(
         <a
           href={blobUrl}
-          download="seating_plan.xlsx"
+          download={downloadFilename}
           className="inline-flex items-center text-accent-foreground hover:text-accent-foreground/80 underline font-medium py-2 px-4 rounded-md bg-accent/20 hover:bg-accent/30 transition-colors"
         >
           <Download className="mr-2 h-5 w-5" />

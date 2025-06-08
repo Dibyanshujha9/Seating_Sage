@@ -19,7 +19,7 @@ export function Navbar() {
           </span>
         </Link>
         <div className="text-sm md:text-base text-foreground/80 text-right">
-          For GGSIPU and Affiliated Institutes
+          For USICT , Guru Gobind Singh Indraprastha University
         </div>
       </div>
     </nav>

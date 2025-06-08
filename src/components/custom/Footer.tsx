@@ -2,7 +2,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin, Square } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -21,14 +21,22 @@ export function Footer() {
               <Github className="h-5 w-5 text-primary hover:text-primary/80 transition-colors" />
             </Link>
           </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium">Hrittick Roy</span>
-            <Link href="https://www.linkedin.com/in/hrittick-roy/" target="_blank" rel="noopener noreferrer" aria-label="Hrittick Roy LinkedIn">
-              <Linkedin className="h-5 w-5 text-primary hover:text-primary/80 transition-colors" />
-            </Link>
-            <Link href="https://github.com/quantam665" target="_blank" rel="noopener noreferrer" aria-label="Hrittick Roy GitHub">
-              <Github className="h-5 w-5 text-primary hover:text-primary/80 transition-colors" />
-            </Link>
+          <div className="flex flex-col md:flex-row md:space-x-6 justify-center items-center">
+            <div className="flex items-center space-x-2 mb-2 md:mb-0">
+              <span className="text-sm font-medium">Hrittick Roy</span>
+              <Link href="https://www.linkedin.com/in/hrittick-roy/" target="_blank" rel="noopener noreferrer" aria-label="Hrittick Roy LinkedIn">
+                <Linkedin className="h-5 w-5 text-primary hover:text-primary/80 transition-colors" />
+              </Link>
+              <Link href="https://github.com/quantam665" target="_blank" rel="noopener noreferrer" aria-label="Hrittick Roy GitHub">
+                <Github className="h-5 w-5 text-primary hover:text-primary/80 transition-colors" />
+              </Link>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-medium">Sourabh Anand</span>
+              <Link href="https://www.linkedin.com/in/sourabh-anand-84a76916a/?originalSubdomain=in" target="_blank" rel="noopener noreferrer" aria-label="Sourabh Anand LinkedIn">
+                <Linkedin className="h-5 w-5 text-primary hover:text-primary/80 transition-colors" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
